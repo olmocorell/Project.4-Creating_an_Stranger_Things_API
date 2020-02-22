@@ -1,6 +1,8 @@
+import recomendaciones as rec   
 from flask import Flask, request
 import conmongo as mg
 import json
+
 
 app = Flask(__name__)
 
@@ -58,8 +60,23 @@ def sentimentsChat(name):
 
 @app.route('/user/sentiments/<name>')
 def sentimentsUser(name):
-    print(name)
-    info = mg.sentimientosUser(name)
+    ran = "N"
+    info = mg.sentimientosUser(name,ran)
     return json.dumps(info)
+
+
+@app.route('/user/random/sentiments/<name>')
+def sentimentsRandom(name):
+    ran = "Y"
+    info = mg.sentimientosUser(name,ran)
+    return json.dumps(info)
+
+@app.route('/recommend/<name>')
+def recomendamosUser(name):
+    info = rec.diccionarioGrande()
+    return json.dumps(info)
+
+
+
 
 app.run("0.0.0.0", 5000, debug=True)

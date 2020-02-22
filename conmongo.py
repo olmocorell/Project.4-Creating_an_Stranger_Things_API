@@ -3,6 +3,7 @@ import checkfun as check
 from bson.json_util import dumps
 import json
 import sentimientos as sent
+import random
 
 client = MongoClient("mongodb://localhost:27017/apidb")
 db = client.get_database()
@@ -111,6 +112,13 @@ def messagesUser(user):
     mensajes = list(coll_message.find(query,{"_id":0}))
     return mensajes
 
+def todosLosMensajes():
+    query = {}
+    mensajes = list(coll_message.find(query,{"_id":0,"name_chat":0}))
+    return mensajes
+
+
+
 def messagesChat(name):
     if check.chat(name) == False:
         pass
@@ -136,7 +144,8 @@ def sentimientosChat(name):
     sentimientos_mensajes = sent.sentimientosMen(mens)
     return sentimientos_mensajes
 
-def sentimientosUser(name):
+def sentimientosUser(name,ran):
+
     checkparam = "name"
     if check.user(checkparam,name) == True:
         pass
@@ -147,5 +156,10 @@ def sentimientosUser(name):
     query = {"name":f"{name}"}
     mensajes= list(coll_message.find(query,{"_id":0}))
     mens = [a.get('message')for a in mensajes]
-    sentimientos_mensajes = sent.sentimientosMen(mens)
+    if ran == "N":
+        sentimientos_mensajes = sent.sentimientosMen(mens)
+    else:
+        sentimientos_mensajes = sent.sentimientosMen(random.choice(mens))
+    
     return sentimientos_mensajes
+
