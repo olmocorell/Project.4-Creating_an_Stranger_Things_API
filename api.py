@@ -1,16 +1,10 @@
 from flask import Flask, request
 import conmongo as mg
+import json
 
 app = Flask(__name__)
 
-@app.route('/hola')
-def hello():
-    pepe = {
-        "nombre": "Luis",
-        "edad": 30
-    }
-    return pepe
-
+#Métodos POST para añadir info a la bd.
 
 @app.route('/new/user',methods=['POST'])
 def insertUser():
@@ -26,20 +20,36 @@ def insertChat():
     mg.addChat(name,participants)
     return "Chat insertado correctamente en la base de datos"
 
+@app.route('/new/message',methods=['POST'])
+def insertMessage():
+    user = request.form.get('name')
+    chat = request.form.get('chat_name')
+    message = request.form.get('message')
+    mg.addMessage(user,chat,message)
+    return "Mensaje insertado correctamente en la base de datos"
+
+#Métodos GET para obtener info de la API.
+
+@app.route('/users')
+def getUsers():
+    info = mg.users()
+    return json.dumps(info)
 
 
+@app.route('/user/chat/<name>')
+def getChatsUser(name):
+    info = mg.chatUser(name)
+    return json.dumps(info)
 
+@app.route('/user/message/<name>')
+def getMessageUser(name):
+    info = mg.messagesUser(name)
+    return json.dumps(info)
 
-
-
-
-
-
-
-
-
-
-
+@app.route('/chat/message/<name>')
+def getMessagesChat(name):
+    info = mg.messagesChat(name)
+    return json.dumps(info)
 
 
 
