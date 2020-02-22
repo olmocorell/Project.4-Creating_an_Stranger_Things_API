@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import checkfun as check
 from bson.json_util import dumps
 import json
+import sentimientos as sent
 
 client = MongoClient("mongodb://localhost:27017/apidb")
 db = client.get_database()
@@ -83,6 +84,13 @@ def addMessage(user,chat,message):
 #Funciones que obtienen info de la base de datos
 
 def chatUser(name):
+    checkparam = "name" 
+    if check.user(checkparam,name) == True:
+        pass
+    else:
+        error = "El usuario no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+
     query = {"participants": f"{name}"}
     grupos = list(coll_chat.find(query,{"_id":0,"chat_name":1}))
     return grupos
@@ -92,11 +100,52 @@ def users():
     return users
 
 def messagesUser(user):
+    checkparam = "name" 
+    if check.user(checkparam,user) == True:
+        pass
+    else:
+        error = "El usuario no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+
     query = {"name":f"{user}"}
-    messages = list(coll_message.find(query,{"_id":0}))
-    return messages
+    mensajes = list(coll_message.find(query,{"_id":0}))
+    return mensajes
 
 def messagesChat(name):
+    if check.chat(name) == False:
+        pass
+    else:
+        error = "El chat indicado no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+    
     query = {"chat_name":f"{name}"}
     mensajes = list(coll_message.find(query,{"_id":0}))
     return mensajes
+
+
+def sentimientosChat(name):
+    if check.chat(name) == False:
+        pass
+    else:
+        error = "El chat indicado no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+
+    query = {"chat_name":f"{name}"}
+    mensajes = list(coll_message.find(query,{"_id":0}))
+    mens = [a.get('message')for a in mensajes]
+    sentimientos_mensajes = sent.sentimientosMen(mens)
+    return sentimientos_mensajes
+
+def sentimientosUser(name):
+    checkparam = "name"
+    if check.user(checkparam,name) == True:
+        pass
+    else:
+        error = "El usuario no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+
+    query = {"name":f"{name}"}
+    mensajes= list(coll_message.find(query,{"_id":0}))
+    mens = [a.get('message')for a in mensajes]
+    sentimientos_mensajes = sent.sentimientosMen(mens)
+    return sentimientos_mensajes

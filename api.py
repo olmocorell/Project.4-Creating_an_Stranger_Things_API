@@ -51,7 +51,15 @@ def getMessagesChat(name):
     info = mg.messagesChat(name)
     return json.dumps(info)
 
+@app.route('/chat/sentiments/<name>')
+def sentimentsChat(name):
+    info = mg.sentimientosChat(name)
+    return json.dumps(info)
 
-
+@app.route('/user/sentiments/<name>')
+def sentimentsUser(name):
+    print(name)
+    info = mg.sentimientosUser(name)
+    return json.dumps(info)
 
 app.run("0.0.0.0", 5000, debug=True)
