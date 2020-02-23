@@ -1,5 +1,5 @@
-import src.checkfun as check
-import src.conmongo as mg
+import checkfun as check
+import conmongo as mg
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as distance
 import numpy as np
@@ -7,6 +7,7 @@ import pandas as pd
 
 users = mg.users()
 mensajes = [mg.messagesUser(a.get("name")) for a in users]
+
 
 def recomiendaUser(name):
     checkparam = "name" 

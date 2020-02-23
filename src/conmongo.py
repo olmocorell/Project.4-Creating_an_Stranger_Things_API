@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-import checkfun as check
+import src.checkfun as check
 from bson.json_util import dumps
 import json
 import sentimientos as sent
