@@ -9,11 +9,67 @@ En este proyecto he creado una API de Stranger Things que permite obtener inform
 
 ## @post
 
-- Insertar personajes.
+- /new/user
 Se pueden insertar personajes en la base de datos realizando una request.post a la API como en el siguiente ejemplo. El sistema checkeará que no existan los personajes.
 
 ```
 user ={"name":"Mike Wheeler"}
-url_user = "http://localhost:5000/new/user"
-requests.post(url_user, data=user)
+url = "http://localhost:5000/new/user"
+requests.post(url, data=user)
+```
+- /new/chat
+Se pueden insertar chats utilizando este comando. Necesitas tener los datos en forma de diccionario.
+```
+chat = { "chat_name": "friends",
+           "participants": ["Mike Wheeler","Dustin Henderson","Will","Lucas"]
+}
+url = "http://localhost:5000/new/chat"
+requests.post(url_chat, data=dchat)
+```
+- /new/message
+De esta manera insertamos un mensaje en la base de datos. 
+```
+mensaje = {'name': 'Once', 'chat_name': 'friends_new', 'message': 'Los amigos no mienten'}
+url = "http://localhost:5000/new/message"
+requests.post(url, data=mensaje)
+```
+## @get
+
+- /users
+Con este endpoint obtenemos todos los usuarios.
+```
+url_users = "http://localhost:5000/users"
+requests.get(url_users).json()
+```
+- /user/chat/<name>
+Con este endopoint obtenemos los chats en los que participa el usuario que le indiquemos.
+```
+url_chats = "http://localhost:5000/user/chat/"
+name = "Mike Wheeler"
+requests.get(url_chats + name).json()
+```
+- /user/message/<name>
+Con este endpoint obtenemos todos los mensajes que ha escrito un usuario.
+```
+url = "http://localhost:5000/user/message/"
+name = "Once"
+requests.get(url + name).json()
+```
+- /chat/message/<name>
+Con este endpoint obtenemos todos los mensajes que se han escrito en un chat.
+```
+url = "http://localhost:5000/chat/message/"
+grupo = "hawkins"
+requests.get(url + grupo).json()
+```
+
+## Análisis de sentimientos
+Con requests a la API podemos analizar los sentimientos de los mensajes que se han escrito en un chat, los sentimientos de una frase random de un usuario o de todos los mensajes de un usuario para saber si se expresa feliz o triste.
+
+- /chat/sentiments/<name>
+Analizamos la polaridad y subjetividad de los mensajes de este chat.
+```
+url = "http://localhost:5000/chat/sentiments/"
+grupo =  "hawkins"
+requests.get(url_sentchat + grupo2).json()
 ```
