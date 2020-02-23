@@ -58,7 +58,6 @@ def getChats():
 #get usuarios de un grupo
 @app.route('/chat/<name>')
 def getUsersChat(name):
-    print(name)
     info = mg.usersChat(name)
     return json.dumps(info)
 
