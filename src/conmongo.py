@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import src.checkfun as check
 from bson.json_util import dumps
 import json
-import sentimientos as sent
+import src.sentimientos as sent
 import random
 
 client = MongoClient("mongodb://localhost:27017/apidb")
