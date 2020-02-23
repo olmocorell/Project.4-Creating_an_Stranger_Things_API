@@ -38,8 +38,14 @@ requests.post(url, data=mensaje)
 - /users
 Con este endpoint obtenemos todos los usuarios.
 ```
-url_users = "http://localhost:5000/users"
-requests.get(url_users).json()
+url = "http://localhost:5000/users"
+requests.get(url).json()
+```
+- /chats
+Con este endpoint podemos saber todos los grupos que hay creados
+````
+url = "http://localhost:5000/chats"
+requests.get(url).json()
 ```
 - /user/chat/name
 Con este endopoint obtenemos los chats en los que participa el usuario que le indiquemos.

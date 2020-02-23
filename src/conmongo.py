@@ -100,6 +100,10 @@ def users():
     users = list(coll_user.find({},{"_id":0, "name":1}))
     return users
 
+def chats():
+    grupos = list(coll_chat.find({},{"_id":0,"chat_name":1}))
+    return grupos
+
 def messagesUser(user):
     checkparam = "name" 
     if check.user(checkparam,user) == True:
