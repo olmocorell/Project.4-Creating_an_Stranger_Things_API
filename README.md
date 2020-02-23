@@ -12,6 +12,8 @@ En este proyecto he creado una API de Stranger Things que permite obtener inform
 - Insertar personajes.
 Se pueden insertar personajes en la base de datos realizando una request.post a la API como en el siguiente ejemplo. El sistema checkeará que no existan los personajes.
 
-```user ={"name":"Mike Wheeler"}```
-```url_user = "http://localhost:5000/new/user"```
-``` requests.post(url_user, data=user)```
+```
+user ={"name":"Mike Wheeler"}
+url_user = "http://localhost:5000/new/user"
+requests.post(url_user, data=user)
+```
