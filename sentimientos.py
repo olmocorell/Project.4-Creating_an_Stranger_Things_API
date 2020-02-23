@@ -1,5 +1,6 @@
 from textblob import TextBlob
 from statistics import mean
+import emoji as em
 
 def sentimientosMen(mensaje):
     """
@@ -17,9 +18,12 @@ def sentimientosMen(mensaje):
         for s in sentimientos:
             polaridad.append(s[0])
             subjetividad.append(s[1])
+        arriba = (em.emojize(':thumbs_up:',use_aliases=True))
+        abajo = (em.emojize(':thumbs_down:',use_aliases=True))
+        emoji = [arriba if mean(polaridad) >=1 else abajo]
 
         dict_analisis = {"Frase": f"{mensaje}",
-                         "polaridad": f"{mean(polaridad)}",
+                         "polaridad": f"{mean(polaridad)}{emoji}",
                          "subjetividad": f"{mean(subjetividad)}"
 
                          }
@@ -32,8 +36,11 @@ def sentimientosMen(mensaje):
         for s in sentimientos:
             polaridad.append(s[0])
             subjetividad.append(s[1])
-    
-        dict_analisis = {"polaridad": f"{mean(polaridad)}",
+        arriba = (em.emojize(':thumbs_up:',use_aliases=True))
+        abajo = (em.emojize(':thumbs_down:',use_aliases=True))
+        emoji = [arriba if mean(polaridad) >=1 else abajo]
+
+        dict_analisis = {"polaridad": f"{mean(polaridad)}{emoji}",
                          "subjetividad": f"{mean(subjetividad)}"
                          }
     return dict_analisis

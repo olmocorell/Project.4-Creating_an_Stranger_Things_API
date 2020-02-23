@@ -73,7 +73,7 @@ def sentimentsRandom(name):
 
 @app.route('/recommend/<name>')
 def recomendamosUser(name):
-    info = rec.diccionarioGrande()
+    info = rec.recomiendaUser(name)
     return json.dumps(info)
 
 
