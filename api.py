@@ -1,3 +1,5 @@
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import src.recomendaciones as rec   
 from flask import Flask, request
 import src.conmongo as mg
@@ -5,7 +7,11 @@ import json
 
 
 app = Flask(__name__)
-
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["20000 per day", "5000 per hour"]
+)
 #Métodos POST para añadir info a la bd.
 
 @app.route('/new/user',methods=['POST'])
@@ -49,6 +55,14 @@ def getChats():
     info = mg.chats()
     return json.dumps(info)
 
+#get usuarios de un grupo
+@app.route('/chat/<name>')
+def getUsersChat(name):
+    print(name)
+    info = mg.usersChat(name)
+    return json.dumps(info)
+
+
 #get todos los mensajes de un user
 @app.route('/user/message/<name>')
 def getMessageUser(name):
@@ -66,12 +80,22 @@ def getMessagesChat(name):
 def sentimentsChat(name):
     info = mg.sentimientosChat(name)
     return json.dumps(info)
+
+
+#get sentimientos de chat(separado por users)
+@app.route('/chat/sentiments/users/<name>')
+def sentimientosChatUsers(name):
+    info = mg.sentimientosChatUser(name)
+    return json.dumps(info)
+
+
 #get sentimientos de un usuario
 @app.route('/user/sentiments/<name>')
 def sentimentsUser(name):
     ran = "N"
     info = mg.sentimientosUser(name,ran)
     return json.dumps(info)
+
 #get sentimientos de un mensaje random de un usuario
 @app.route('/user/random/sentiments/<name>')
 def sentimentsRandom(name):
@@ -84,8 +108,5 @@ def sentimentsRandom(name):
 def recomendamosUser(name):
     info = rec.recomiendaUser(name)
     return json.dumps(info)
-
-
-
 
 app.run("0.0.0.0", 5000, debug=True)

@@ -4,6 +4,7 @@ from bson.json_util import dumps
 import json
 import src.sentimientos as sent
 import random
+import time
 
 client = MongoClient("mongodb://localhost:27017/apidb")
 db = client.get_database()
@@ -83,7 +84,6 @@ def addMessage(user,chat,message):
     coll_message.insert_one(dict_insert)
 
 #Funciones que obtienen info de la base de datos
-
 def chatUser(name):
     checkparam = "name" 
     if check.user(checkparam,name) == True:
@@ -104,6 +104,12 @@ def chats():
     grupos = list(coll_chat.find({},{"_id":0,"chat_name":1}))
     return grupos
 
+def usersChat(name):
+    query = {"chat_name": f"{name}"}
+    users = list(coll_chat.find(query,{"_id":0}))
+    return users
+
+
 def messagesUser(user):
     checkparam = "name" 
     if check.user(checkparam,user) == True:
@@ -116,11 +122,11 @@ def messagesUser(user):
     mensajes = list(coll_message.find(query,{"_id":0}))
     return mensajes
 
+
 def todosLosMensajes():
     query = {}
     mensajes = list(coll_message.find(query,{"_id":0,"name_chat":0}))
     return mensajes
-
 
 
 def messagesChat(name):
@@ -148,6 +154,7 @@ def sentimientosChat(name):
     sentimientos_mensajes = sent.sentimientosMen(mens)
     return sentimientos_mensajes
 
+
 def sentimientosUser(name,ran):
 
     checkparam = "name"
@@ -167,3 +174,28 @@ def sentimientosUser(name,ran):
     
     return sentimientos_mensajes
 
+def sentimientosChatUser(name):
+    total = []
+    mensajesgrupo = []
+    if check.chat(name) == False:
+        pass
+    else:
+        error = "El chat indicado no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+    users = usersChat(name)
+    listabien = users[0].get("participants")
+
+    for a in listabien:
+        query = {"$and":[{"chat_name":f"{name}"}, {"name":f"{a}"}]}
+        mensajespers = list(coll_message.find(query,{"_id":0}))
+        mensaje = [b.get("message") for b in mensajespers]
+        polaridad = sent.sentimientosMen(mensaje)
+        persona = {}
+        persona[a] = polaridad
+        mensajesgrupo.append(persona)
+    
+    sentotal = sentimientosChat(name)
+    total.append(sentotal)
+    total.append(mensajesgrupo)
+
+    return total

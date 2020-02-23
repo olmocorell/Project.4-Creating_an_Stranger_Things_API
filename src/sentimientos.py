@@ -2,6 +2,7 @@ from textblob import TextBlob
 from statistics import mean
 import emoji as em
 
+
 def sentimientosMen(mensaje):
     """
     analiza la polaridad de positivo/negativo de una frase (o lista) y devuelve
@@ -20,7 +21,7 @@ def sentimientosMen(mensaje):
             subjetividad.append(s[1])
         arriba = (em.emojize(':thumbs_up:',use_aliases=True))
         abajo = (em.emojize(':thumbs_down:',use_aliases=True))
-        emoji = [arriba if mean(polaridad) >=1 else abajo]
+        emoji = [arriba if mean(polaridad) >=0 else abajo]
 
         dict_analisis = {"Frase": f"{mensaje}",
                          "polaridad": f"{mean(polaridad)}{emoji}",
@@ -38,7 +39,7 @@ def sentimientosMen(mensaje):
             subjetividad.append(s[1])
         arriba = (em.emojize(':thumbs_up:',use_aliases=True))
         abajo = (em.emojize(':thumbs_down:',use_aliases=True))
-        emoji = [arriba if mean(polaridad) >=1 else abajo]
+        emoji = [arriba if mean(polaridad) >=0 else abajo]
 
         dict_analisis = {"polaridad": f"{mean(polaridad)}{emoji}",
                          "subjetividad": f"{mean(subjetividad)}"
