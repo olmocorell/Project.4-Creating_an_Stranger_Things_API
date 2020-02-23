@@ -1,6 +1,6 @@
-import recomendaciones as rec   
+import src.recomendaciones as rec   
 from flask import Flask, request
-import conmongo as mg
+import src.conmongo as mg
 import json
 
 
