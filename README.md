@@ -88,14 +88,15 @@ url = "http://localhost:5000/chat/sentiments/"
 grupo =  "hawkins"
 requests.get(url_sentchat + grupo2).json()
 ```
-- /user/sentiments/name
+- /chat/sentiments/users/name
 
-Con este comando analizamos la polaridad y subjetividad de los mensajes de un usuario.
+Analizamos la polaridad y subjetividad de un grupo y obtenemos también la polaridad y subjetividad de cómo se expresa cada usuario de ese grupo.
 ```
-url = "http://localhost:5000/user/sentiments/"
-dustin ="Dustin Henderson"
-requests.get(url + dustin).json()
+url= "http://localhost:5000/chat/sentiments/users/"
+gruporuser = "friends"
+requests.get(url + gruporuser)
 ```
+
 - /user/random/sentiments/name
 
 Elegimos un usuario y el sistema nos devuelve el análisis de sentimientos de un mensaje elegido de forma aleatoria de entre todos los mensajes que ha escrito.
@@ -104,6 +105,15 @@ url= "http://localhost:5000/user/random/sentiments/"
 hopper =  "Jim Hopper"
 requests.get(url + hopper).json()
 ```
+- /user/sentiments/name
+
+Con este comando analizamos la polaridad y subjetividad de los mensajes de un usuario.
+```
+url = "http://localhost:5000/user/sentiments/"
+dustin ="Dustin Henderson"
+requests.get(url + dustin).json()
+```
+
 ## Sistema de recomendaciones (NLP)
 Mediante el procesado de lenguaje realizamos un sistema de recomendaciones basado en la temática de la que habla cada usuario.
 En este caso, para obtener una recomendación de amistad, introduces un nombre en la request como en el siguiente ejemplo.
