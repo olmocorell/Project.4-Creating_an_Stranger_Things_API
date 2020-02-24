@@ -46,6 +46,12 @@ def usersChat(name):
     Devuelve todos los users que hay registrados en un chat
     en con creto que le pases como argumento.
     """
+    if check.chat(name) == False:
+        pass
+    else:
+        error = "El chat indicado no existe, indique uno existente o cree uno nuevo"
+        raise ValueError(error)
+    
     query = {"chat_name": f"{name}"}
     users = list(coll_chat.find(query,{"_id":0}))
     return users

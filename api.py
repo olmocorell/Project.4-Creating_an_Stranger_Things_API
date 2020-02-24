@@ -7,7 +7,6 @@ import json
 
 app = Flask(__name__)
 #Métodos POST para añadir info a la bd.
-
 @app.route('/new/user',methods=['POST'])
 def insertUser():
     nombre = request.form.getlist('name')
