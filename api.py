@@ -1,5 +1,3 @@
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
 import src.recomendaciones as rec   
 from flask import Flask, request
 import src.mongoadd as mgadd
@@ -8,11 +6,6 @@ import json
 
 
 app = Flask(__name__)
-limiter = Limiter(
-    app,
-    key_func=get_remote_address,
-    default_limits=["20000 per day", "5000 per hour"]
-)
 #Métodos POST para añadir info a la bd.
 
 @app.route('/new/user',methods=['POST'])

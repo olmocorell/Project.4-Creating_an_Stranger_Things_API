@@ -1,12 +1,12 @@
 import src.checkfun as check
-import src.conmongo as mg
+import src.mongoget as mgget
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as distance
 import numpy as np
 import pandas as pd
 
-users = mg.users()
-mensajes = [mg.messagesUser(a.get("name")) for a in users]
+users = mgget.users()
+mensajes = [mgget.messagesUser(a.get("name")) for a in users]
 
 def recomiendaUser(name):
     checkparam = "name" 
