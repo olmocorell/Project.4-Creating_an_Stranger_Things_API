@@ -5,6 +5,15 @@ Analizando sentimientos de un chat con TextBlob y realizando recomendaciones con
 
 En este proyecto he creado una API de Stranger Things que permite obtener información de una base de datos que contiene mensajes que se han enviado los personajes en sus grupos de mensajería.
 
+La API está desplegada en Heroku. Ejemplo:
+```
+https://strangerapi.herokuapp.com/chats
+```
+
+También puede correr en local mediante un contenedor docker aplicando este comando en la terminal:
+```
+docker run -p 5000:5000 --env DB_URL="mongodb+srv://admin:admin@cluster0-u7oa3.gcp.mongodb.net/apidb?retryWrites=true&w=majority" --env PORT=5000 strangerapi
+```
 ### ¿Cómo funciona?
 
 ## @post

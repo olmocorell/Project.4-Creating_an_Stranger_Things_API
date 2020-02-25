@@ -3,7 +3,9 @@ from flask import Flask, request
 import src.mongoadd as mgadd
 import src.mongoget as mgget
 import json
-
+import os
+import dotenv
+dotenv.load_dotenv()
 
 app = Flask(__name__)
 #Métodos POST para añadir info a la bd.
@@ -101,4 +103,4 @@ def recomendamosUser(name):
     info = rec.recomiendaUser(name)
     return json.dumps(info)
 
-app.run("0.0.0.0", 5000, debug=True)
+app.run("0.0.0.0", os.getenv("PORT"), debug=True)

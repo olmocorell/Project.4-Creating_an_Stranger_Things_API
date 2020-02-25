@@ -1,9 +1,15 @@
+#cosas de la imagen de docker
+mongodb-macos-x86_64-4.2.3/
+mongodb-shell-macos-x86_64-4.2.3.tgz
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 .DS_Stores
 .DS_Store
+dump
+
+
 # C extensions
 *.so
 
@@ -110,6 +116,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.private.env
 
 # Spyder project settings
 .spyderproject
@@ -128,3 +135,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+

@@ -1,5 +1,7 @@
 from pymongo import MongoClient
-client = MongoClient("mongodb://localhost:27017/apidb")
+from src.config import dbURL
+
+client = MongoClient(dbURL)
 db = client.get_database()
 coll_user = db['users']
 coll_chat = db['chats']

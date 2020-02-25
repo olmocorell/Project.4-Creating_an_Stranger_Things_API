@@ -2,9 +2,10 @@ from pymongo import MongoClient
 import src.checkfun as check
 import src.sentimientos as sent
 import random
+from src.config import dbURL
 
 
-client = MongoClient("mongodb://localhost:27017/apidb")
+client = MongoClient(dbURL)
 db = client.get_database()
 coll_user = db['users']
 coll_chat = db['chats']
