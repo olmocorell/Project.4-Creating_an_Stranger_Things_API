@@ -4,7 +4,6 @@ import src.sentimientos as sent
 import random
 from src.config import dbURL
 
-
 client = MongoClient(dbURL)
 db = client.get_database()
 coll_user = db['users']
