@@ -12,7 +12,7 @@ https://strangerapi.herokuapp.com/chats
 
 También puede correr en local mediante un contenedor docker conectado a Atlas aplicando este comando en la terminal:
 ```
-docker run -p 5000:5000 --env DB_URL="mongodb+srv://admin:admin@cluster0-u7oa3.gcp.mongodb.net/apidb?retryWrites=true&w=majority" --env PORT=5000 strangerapi
+docker run -p 5000:5000 --env DB_URL="mongodb+srv://USER:PASS@cluster0-u7oa3.gcp.mongodb.net/apidb?retryWrites=true&w=majority" --env PORT=5000 strangerapi
 ```
 
 O correr en local conectado a la db local con el siguiente comando:

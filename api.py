@@ -9,6 +9,10 @@ dotenv.load_dotenv()
 
 app = Flask(__name__)
 #Métodos POST para añadir info a la bd.
+@app.route('/')
+def raiz():
+    return """<a href="https://github.com/agalvezcorell/Project.4-Creating_an_Stranger_Things_API">Haz click aquí para acceder a la documentación de la API</a>"""
+
 @app.route('/new/user',methods=['POST'])
 def insertUser():
     nombre = request.form.getlist('name')
