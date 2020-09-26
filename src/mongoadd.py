@@ -2,7 +2,7 @@ from pymongo import MongoClient
 import src.checkfun as check
 import src.sentimientos as sent
 import random
-from src.config import dbURL
+from src.config.configuration import dbURL
 
 client = MongoClient(dbURL)
 db = client.get_database()
