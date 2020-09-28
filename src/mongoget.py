@@ -10,7 +10,6 @@ coll_user = db['users']
 coll_chat = db['chats']
 coll_message = db['messages']
 
-
 #Funciones que obtienen info de la base de datos
 def chatUser(name):
     """
