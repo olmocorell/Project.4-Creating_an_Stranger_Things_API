@@ -1,4 +1,4 @@
-import checkfun as check
+from tools import checkfun as check
 import sentimientos as sent
 import random
 from config.configuration import db, coll_user, coll_chat, coll_message
