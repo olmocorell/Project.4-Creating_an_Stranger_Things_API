@@ -1,14 +1,8 @@
-from pymongo import MongoClient
-import src.checkfun as check
-import src.sentimientos as sent
+import checkfun as check
+import sentimientos as sent
 import random
-from src.config.configuration import dbURL
+from config.configuration import db, coll_user, coll_chat, coll_message
 
-client = MongoClient(dbURL)
-db = client.get_database()
-coll_user = db['users']
-coll_chat = db['chats']
-coll_message = db['messages']
 
 #Funciones que obtienen info de la base de datos
 def chatUser(name):

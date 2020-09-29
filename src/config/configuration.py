@@ -1,11 +1,21 @@
 import os
 import dotenv
-env_path = os.path.join(os.path.dirname(__file__),'..', '.env')
-dotenv.load_dotenv(dotenv_path=env_path)
+from pymongo import MongoClient
 
+dotenv.load_dotenv()
+
+PORT = os.getenv("PORT")
+DBURL = os.getenv("DBURL")
 
 # Connect to the database
-dbURL = os.getenv('DB_URL')
-print(dbURL)
-if not dbURL:
+
+print(DBURL)
+if not DBURL:
     raise ValueError("You should specify MONGODB_URL environment variable")
+
+
+client = MongoClient(DBURL)
+db = client.get_database()
+coll_user = db['users']
+coll_chat = db['chats']
+coll_message = db['messages']

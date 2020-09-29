@@ -1,8 +1,14 @@
+from flask import request
+import sys
+import imp
+sys.path.append('..')
+from mongoadd import *
+
 import src.recomendaciones as rec   
-import src.mongoadd as mgadd
-import src.mongoget as mgget
+import mongoget as mgget
 from __api__ import api
 import json
+
 
 #Métodos POST para añadir info a la bd.
 @app.route('/')

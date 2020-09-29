@@ -1,8 +1,6 @@
 import os
 import dotenv
 from src.api import app
-dotenv.load_dotenv()
+from src.config.configuration import PORT
 
-
-
-app.run("0.0.0.0", os.getenv("PUERTO"), debug=True)
+app.run("0.0.0.0", PORT, debug=True) 
