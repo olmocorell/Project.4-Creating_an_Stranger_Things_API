@@ -1,11 +1,6 @@
 from pymongo import MongoClient
-from src.config import dbURL
+from config.configuration import db, coll_user, coll_chat, coll_message
 
-client = MongoClient(dbURL)
-db = client.get_database()
-coll_user = db['users']
-coll_chat = db['chats']
-coll_message = db['messages']
 
 
 def user(name,search):

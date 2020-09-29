@@ -1,5 +1,5 @@
-import checkfun as check
-import mongoget as mgget
+import tools.checkfun as check
+import tools.mongoget as mgget
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity as distance
 import numpy as np

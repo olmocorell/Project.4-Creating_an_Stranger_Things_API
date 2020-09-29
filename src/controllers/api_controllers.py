@@ -1,12 +1,9 @@
 from flask import request
 import json
-import os
-import sys
-
-from tools import mongoadd as mgadd
-from tools import recomendaciones as rec   
-from tools import mongoget as mgget
-from api import app
+import tools.mongoadd as mgadd
+import tools.recomendaciones as rec   
+import tools.mongoget as mgget
+from app import app
 
 
 
