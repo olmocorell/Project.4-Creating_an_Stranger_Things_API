@@ -15,7 +15,6 @@ def addUser(nombre):
     else:
         error = 'Ya existe un usuario con ese user_id en la base de datos'
         raise ValueError (error)
-        return json.dump(error)
     query = {}
     identity=list(coll_user.find(query,{"_id":0,"name":1}))
 

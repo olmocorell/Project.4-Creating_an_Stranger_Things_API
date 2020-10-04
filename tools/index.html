@@ -200,13 +200,21 @@
   <li><a href="#addInventory"><code><span class="http-method">post</span> /add</code></a></li>
   </ul>
   <h4><a href="#Developers">Developers</a></h4>
-
   <ul>
   <li><a href="#searchInventory"><code><span class="http-method">get</span> /inventory</code></a></li>
   </ul>
-
+  <h4><a href="#sentiments">Sentiments</a></h4>
+  <ul>
+  <li><a href="#sentiments"><code><span class="http-method">get</span> /sentiments</code></a></li>
+  </ul>
+  <h4><a href="#recommend">Sistema de recomendación</a></h4>
+  <ul>
+  <li><a href="#recommend"><code><span class="http-method">get</span> /recommend</code></a></li>
+  <a href="#"></a>
+  </ul>
+<hr color="black" size=1>
   <h1><a name="Admins">Admins</a></h1>
-  <div class="method-notes">Endpoinds disponibles para añadir información a la base de datos</div>
+  <div class="method-notes">Endpoints disponibles para añadir información a la base de datos</div>
 
   <div class="method"><a name="addInventory"></a>
     <div class="method-path">
@@ -233,13 +241,7 @@ message = {'name': 'Once', 'chat_name': 'friends_new', 'message': 'Los amigos no
 
                 </div>  <!-- field-items -->
 
-
-
-
-
     <!--Todo: process Response Object and its headers, schema, examples -->
-
-
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
@@ -247,113 +249,92 @@ message = {'name': 'Once', 'chat_name': 'friends_new', 'message': 'Los amigos no
         <a href="#"></a>
     <h4 class="field-label">404</h4>
     invalid input, object invalid,an existing item already exists
-        <a href="#"></a>
+    
   </div> <!-- method -->
   <hr/>
   <h1><a name="Developers">Developers</a></h1>
+  <div class="method-notes">Endpoints disponibles para obtener información de la base de datos</div>
   <div class="method"><a name="searchInventory"></a>
     <div class="method-path">
     <a class="up" href="#__StrangerApi">Up</a>
     <pre class="get"><code class="huge"><span class="http-method">get</span> /inventory</code></pre></div>
-    <div class="method-summary">searches inventory (<span class="nickname">searchInventory</span>)</div>
-    <div class="method-notes">By passing in the appropriate options, you can search for
-available inventory in the system</div>
-
-
-
+    <div class="method-summary">/users</div>
+    <div class="method-notes">Devuelve todos los usuarios que hay en la base de datos</div>
+    <div class="method-summary">/chats</div>
+    <div class="method-notes">Devuelve todos los chats que hay en la base de datos</div>
+    <div class="method-summary">/user/chat/name</div>
+    <div class="method-notes">Devuelve los chats en los que participa el usuario que le indiquemos.</div>
+    <div class="method-summary">/user/message/name</div>
+    <div class="method-notes">Devuelve todos los mensajes que ha escrito un usuario.</div>
+    <div class="method-summary">/chat/message/name</div>
+    <div class="method-notes">Devuelve todos los mensajes que ha escrito un usuario en el chat que le indiques.</div>
 
 
     <h3 class="field-label">Query parameters</h3>
     <div class="field-items">
-      <div class="param">searchString (optional)</div>
+      <div class="param">(searchString)</div>
       
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; pass an optional search string for looking up inventory </div>      <div class="param">skip (optional)</div>
-      
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; number of records to skip for pagination format: int32</div>      <div class="param">limit (optional)</div>
-      
-            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; maximum number of records to return format: int32</div>    </div>  <!-- field-items -->
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; solo hay que añadir el string correspondiente a cada endpoint </div>    
 
-
-    <h3 class="field-label">Return type</h3>
-    <div class="return-type">
-      array[<a href="#InventoryItem">InventoryItem</a>]
-      
     </div>
 
     <!--Todo: process Response Object and its headers, schema, examples -->
 
-    <h3 class="field-label">Example data</h3>
-    <div class="example-data-content-type">Content-Type: application/json</div>
-    <pre class="example"><code>[ {
-  "releaseDate" : "2016-08-29T09:12:33.001Z",
-  "name" : "Widget Adapter",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-  "manufacturer" : {
-    "phone" : "408-867-5309",
-    "name" : "ACME Corporation",
-    "homePage" : "https://www.acme-corp.com"
-  }
-}, {
-  "releaseDate" : "2016-08-29T09:12:33.001Z",
-  "name" : "Widget Adapter",
-  "id" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
-  "manufacturer" : {
-    "phone" : "408-867-5309",
-    "name" : "ACME Corporation",
-    "homePage" : "https://www.acme-corp.com"
-  }
-} ]</code></pre>
+    <h3 class="field-label">Example Queries</h3>
+    <pre class="example"><code>#Ejemplo de query para obtener todos los mensajes de Once
+url = "https://strangerapi.herokuapp.com/user/message/"
+name = "Once"
+requests.get(url + name).json()
 
-    <h3 class="field-label">Produces</h3>
-    This API call produces the following media types according to the <span class="header">Accept</span> request header;
-    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
-    <ul>
-      <li><code>application/json</code></li>
-    </ul>
+#Ejemplo para obtener todos los chats en los que participa Mike Wheeler
+url_chats = "https://strangerapi.herokuapp.com/user/chat/"
+name = "Mike Wheeler"
+requests.get(url_chats + name).json()</code></pre>
 
     <h3 class="field-label">Responses</h3>
     <h4 class="field-label">200</h4>
-    search results matching criteria
-        
-    <h4 class="field-label">400</h4>
-    bad input parameter
+    Si devuelve un json sin datos es porque no ha encontrado el usuario/chat solicitado
+      
         <a href="#"></a>
   </div> <!-- method -->
+  
   <hr/>
+  <h1><a name="Sentimientos">Sentimientos</a></h1>
+  <div class="method-notes">Con requests a la API podemos analizar los sentimientos de los mensajes que se han escrito en un chat, los sentimientos de una frase random de un usuario o de todos los mensajes de un usuario para saber si se expresa feliz o triste.</div>
+  <div class="method"><a name="sentiments"></a>
+    <div class="method-path">
+    <a class="up" href="#__StrangerApi">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /sentiments</code></pre></div>
+    <div class="method-summary">/chat/sentiments/user</div>
+    <div class="method-notes">Analizamos la polaridad y subjetividad de los mensajes de este chat.</div>
+    <div class="method-summary">/chat/sentiments/users/name</div>
+    <div class="method-notes">Analizamos la polaridad y subjetividad de un grupo y obtenemos también la polaridad y subjetividad de cómo se expresa cada usuario de ese grupo</div>
+    <div class="method-summary">/user/random/sentiments/name</div>
+    <div class="method-notes">Elegimos un usuario y el sistema nos devuelve el análisis de sentimientos de un mensaje elegido de forma aleatoria de entre todos los mensajes que ha escrito.</div>
+    <div class="method-summary">/user/sentiments/name</div>
+    <div class="method-notes">Con este comando analizamos la polaridad y subjetividad de los mensajes de un usuario.</div>
+  
+    <h3 class="field-label">Example Queries</h3>
+    <pre class="example"><code>#Ejemplo para analizar la polaridad y subjetividad del chat de Hawkings
+url = "https://strangerapi.herokuapp.com/chat/sentiments/"
+grupo =  "hawkins"
+requests.get(url_sentchat + grupo).json()</code></pre>
 
-  <h2><a name="__Models">Models</a></h2>
-  [ Jump to <a href="#__StrangerApi">Methods</a> ]
+  <hr/>
+<h1><a name="recommend">Sistema de recomendación</a></h1>
+<div class="method-notes">Mediante el procesado de lenguaje realizamos un sistema de recomendaciones basado en la temática de la que habla cada usuario. En este caso, para obtener una recomendación de amistad, introduces un nombre en la request como en el siguiente ejemplo.</div>
+  <div class="method"><a name="recommend"></a>
+  <div class="method-path">
+  <a class="up" href="#__StrangerApi">Up</a>
+  <pre class="get"><code class="huge"><span class="http-method">get</span> /recommend</code></pre></div>
+  <h3 class="field-label">Example Queries</h3>
+    <pre class="example"><code>#Ejemplo sobre cómo obtener una recomendación para un user
+url= "https://strangerapi.herokuapp.com/recommend/"
+name = "Kali"
+requests.get(url + name).json()</code></pre>
+</div>
+<p></p>
+<hr/>
 
-  <h3>Table of Contents</h3>
-  <ol>
-    <li><a href="#InventoryItem"><code>InventoryItem</code></a></li>
-    <li><a href="#Manufacturer"><code>Manufacturer</code></a></li>
-  </ol>
-
-  <div class="model">
-    <h3><a name="InventoryItem"><code>InventoryItem</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#UUID">UUID</a></span>  format: uuid</div>
-          <div class="param-desc"><span class="param-type">example: d290f1ee-6c54-4b01-90e6-d701748f0851</span></div>
-<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: Widget Adapter</span></div>
-<div class="param">releaseDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
-          <div class="param-desc"><span class="param-type">example: 2016-08-29T09:12:33.001Z</span></div>
-<div class="param">manufacturer </div><div class="param-desc"><span class="param-type"><a href="#Manufacturer">Manufacturer</a></span>  </div>
-    </div>  <!-- field-items -->
-  </div>
-  <div class="model">
-    <h3><a name="Manufacturer"><code>Manufacturer</code></a> <a class="up" href="#__Models">Up</a></h3>
-    
-    <div class="field-items">
-      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: ACME Corporation</span></div>
-<div class="param">homePage (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: url</div>
-          <div class="param-desc"><span class="param-type">example: https://www.acme-corp.com</span></div>
-<div class="param">phone (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
-          <div class="param-desc"><span class="param-type">example: 408-867-5309</span></div>
-    </div>  <!-- field-items -->
-  </div>
   </body>
 </html>
