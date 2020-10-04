@@ -5,20 +5,11 @@ Analizando sentimientos de un chat con TextBlob y realizando recomendaciones con
 
 En este proyecto he creado una API de Stranger Things que permite obtener información de una base de datos que contiene mensajes que se han enviado los personajes en sus grupos de mensajería.
 
-La API está desplegada en Heroku. Ejemplo:
+La API está desplegada en Heroku. El enlace es:
 ```
-https://strangerapi.herokuapp.com/chats
-```
-
-También puede correr en local mediante un contenedor docker conectado a Atlas aplicando este comando en la terminal:
-```
-docker run -p 5000:5000 --env DB_URL="mongodb+srv://USER:PASS@cluster0-u7oa3.gcp.mongodb.net/apidb?retryWrites=true&w=majority" --env PORT=5000 strangerapi
+https://strangerapi.herokuapp.com
 ```
 
-O correr en local conectado a la db local con el siguiente comando:
-```
-docker run -p 5000:5000 --env DB_URL="mongodb://host.docker.internal/apidb" --env PORT=5000 strangerapi
-```
 ### ¿Cómo funciona?
 
 ## @post
@@ -29,7 +20,7 @@ Se pueden insertar personajes en la base de datos realizando una request.post a 
 
 ```
 user ={"name":"Mike Wheeler"}
-url = "http://localhost:5000/new/user"
+url = "https://strangerapi.herokuapp.com/new/user"
 requests.post(url, data=user)
 ```
 - /new/chat
@@ -39,7 +30,6 @@ Se pueden insertar chats utilizando este comando. Necesitas tener los datos en f
 chat = { "chat_name": "friends",
            "participants": ["Mike Wheeler","Dustin Henderson","Will","Lucas"]
 }
-url = "http://localhost:5000/new/chat"
 requests.post(url_chat, data=dchat)
 ```
 - /new/message
@@ -47,7 +37,7 @@ requests.post(url_chat, data=dchat)
 De esta manera insertamos un mensaje en la base de datos. 
 ```
 mensaje = {'name': 'Once', 'chat_name': 'friends_new', 'message': 'Los amigos no mienten'}
-url = "http://localhost:5000/new/message"
+url = "https://strangerapi.herokuapp.com/new/message"
 requests.post(url, data=mensaje)
 ```
 ## @get
@@ -56,21 +46,21 @@ requests.post(url, data=mensaje)
 
 Con este endpoint obtenemos todos los usuarios.
 ```
-url = "http://localhost:5000/users"
+url = "https://strangerapi.herokuapp.com/users"
 requests.get(url).json()
 ```
 - /chats
 
 Con este endpoint podemos saber todos los grupos que hay creados
 ```
-url = "http://localhost:5000/chats"
+url = "https://strangerapi.herokuapp.com/chats"
 requests.get(url).json()
 ```
 - /user/chat/name
 
 Con este endopoint obtenemos los chats en los que participa el usuario que le indiquemos.
 ```
-url_chats = "http://localhost:5000/user/chat/"
+url_chats = "https://strangerapi.herokuapp.com/user/chat/"
 name = "Mike Wheeler"
 requests.get(url_chats + name).json()
 ```
@@ -78,7 +68,7 @@ requests.get(url_chats + name).json()
 
 Con este endpoint obtenemos todos los mensajes que ha escrito un usuario.
 ```
-url = "http://localhost:5000/user/message/"
+url = "https://strangerapi.herokuapp.com/user/message/"
 name = "Once"
 requests.get(url + name).json()
 ```
@@ -86,7 +76,7 @@ requests.get(url + name).json()
 
 Con este endpoint obtenemos todos los mensajes que se han escrito en un chat.
 ```
-url = "http://localhost:5000/chat/message/"
+url = "https://strangerapi.herokuapp.com/chat/message/"
 grupo = "hawkins"
 requests.get(url + grupo).json()
 ```
@@ -98,7 +88,7 @@ Con requests a la API podemos analizar los sentimientos de los mensajes que se h
 
 Analizamos la polaridad y subjetividad de los mensajes de este chat.
 ```
-url = "http://localhost:5000/chat/sentiments/"
+url = "https://strangerapi.herokuapp.com/chat/sentiments/"
 grupo =  "hawkins"
 requests.get(url_sentchat + grupo2).json()
 ```
@@ -106,7 +96,7 @@ requests.get(url_sentchat + grupo2).json()
 
 Analizamos la polaridad y subjetividad de un grupo y obtenemos también la polaridad y subjetividad de cómo se expresa cada usuario de ese grupo.
 ```
-url= "http://localhost:5000/chat/sentiments/users/"
+url= "https://strangerapi.herokuapp.com/chat/sentiments/users/"
 gruporuser = "friends"
 requests.get(url + gruporuser)
 ```
@@ -115,7 +105,7 @@ requests.get(url + gruporuser)
 
 Elegimos un usuario y el sistema nos devuelve el análisis de sentimientos de un mensaje elegido de forma aleatoria de entre todos los mensajes que ha escrito.
 ```
-url= "http://localhost:5000/user/random/sentiments/"
+url= "https://strangerapi.herokuapp.com/user/random/sentiments/"
 hopper =  "Jim Hopper"
 requests.get(url + hopper).json()
 ```
@@ -123,7 +113,7 @@ requests.get(url + hopper).json()
 
 Con este comando analizamos la polaridad y subjetividad de los mensajes de un usuario.
 ```
-url = "http://localhost:5000/user/sentiments/"
+url = "https://strangerapi.herokuapp.com/user/sentiments/"
 dustin ="Dustin Henderson"
 requests.get(url + dustin).json()
 ```
@@ -132,7 +122,19 @@ requests.get(url + dustin).json()
 Mediante el procesado de lenguaje realizamos un sistema de recomendaciones basado en la temática de la que habla cada usuario.
 En este caso, para obtener una recomendación de amistad, introduces un nombre en la request como en el siguiente ejemplo.
 ```
-url= "http://localhost:5000/recommend/"
+url= "https://strangerapi.herokuapp.com/recommend/"
 name = "Kali"
 requests.get(url + name).json()
+```
+
+### Funcionamiento en local ejecutando el .py o el contenedor de Docker
+
+La api puede correr en local mediante un contenedor docker conectado a Atlas aplicando este comando en la terminal:
+```
+docker run -p 5000:5000 --env DB_URL="mongodb+srv://USER:PASS@cluster0-u7oa3.gcp.mongodb.net/apidb?retryWrites=true&w=majority" --env PORT=5000 strangerapi
+```
+
+O correr en local conectado a la db local con el siguiente comando:
+```
+docker run -p 5000:5000 --env DB_URL="mongodb://host.docker.internal/apidb" --env PORT=5000 strangerapi
 ```
