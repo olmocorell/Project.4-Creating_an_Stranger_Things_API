@@ -8,9 +8,12 @@ from app import app
 
 
 #Métodos POST para añadir info a la bd.
-@app.route('/')
-def raiz():
-    return """<a href="https://github.com/agalvezcorell/Project.4-Creating_an_Stranger_Things_API">Haz click aquí para acceder a la documentación de la API</a>"""
+@app.route("/")
+def index_api():
+    HtmlFile = open('tools/index.html', 'r', encoding='utf-8')
+    index_api = HtmlFile.read() 
+    return index_api
+
 
 @app.route('/new/user',methods=['POST'])
 def insertUser():
