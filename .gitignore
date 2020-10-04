@@ -1,13 +1,15 @@
 #cosas de la imagen de docker
 mongodb-macos-x86_64-4.2.3/
 mongodb-shell-macos-x86_64-4.2.3.tgz
-# Byte-compiled / optimized / DLL files
+
+# Cosas mías
 __pycache__/
 *.py[cod]
 *$py.class
 .DS_Stores
 .DS_Store
 dump
+snippets.html
 
 
 # C extensions
