@@ -197,33 +197,40 @@
   <div class="method-summary"></div>
   <h4><a href="#Admins">Admins</a></h4>
   <ul>
-  <li><a href="#add"><code><span class="http-method">post</span> /add</code></a></li>
+  <li><a href="#addInventory"><code><span class="http-method">post</span> /add</code></a></li>
   </ul>
   <h4><a href="#Developers">Developers</a></h4>
+
   <ul>
   <li><a href="#searchInventory"><code><span class="http-method">get</span> /inventory</code></a></li>
   </ul>
 
   <h1><a name="Admins">Admins</a></h1>
+  <div class="method-notes">Endpoinds disponibles para añadir información a la base de datos</div>
+
   <div class="method"><a name="addInventory"></a>
     <div class="method-path">
     <a class="up" href="#__StrangerApi">Up</a>
     <pre class="post"><code class="huge"><span class="http-method">post</span> /inventory</code></pre></div>
-    <div class="method-summary">/new/user (<span class="nickname">addInventory</span>)</div>
+    <div class="method-summary">/new/user (<span class="nickname">addUser</span>)</div>
     <div class="method-notes">Añade un usuario a la base de datos. Es importante no añadir usuarios a la base de datos si no vamos a añadir mensajes a dichos usuarios para que funcione correctamente el sistema de recomendación.</div>
+    <div class="method-summary">/new/chat (<span class="nickname">addChat</span>)</div>
+    <div class="method-notes">Se pueden insertar chats utilizando este comando. Necesitas tener los datos en forma de diccionario.</div>
+    <div class="method-summary">/new/message (<span class="nickname">addChat</span>)</div>
+    <div class="method-notes">De esta manera insertamos un mensaje en la base de datos.</div>
 
-
-    <h3 class="field-label">Consumes</h3>
-    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <h3 class="field-label">Headers</h3>
+    Para introducir datos en la base de datos a través de la API necesitas hacer una request con headers en formato diccionario de Python  <span class="header">Content-Type</span> request header:
     <ul>
-      <li><code>application/json</code></li>
+      <li><code>requests.post(url, data)</code></li>
     </ul>
 
-    <h3 class="field-label">Request body</h3>
-    <div class="field-items">
-      <div class="param">body <a href="#InventoryItem">InventoryItem</a> (optional)</div>
-      
-            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Inventory item to add </div>
+    <h3 class="field-label">Example data</h3>
+    <pre class="example"><code>user = { "user": "Mike Wheeler"}
+chat = { "chat_name": "friends", "participants": ["Mike Wheeler","Dustin Henderson","Will","Lucas"]}
+message = {'name': 'Once', 'chat_name': 'friends_new', 'message': 'Los amigos no mienten'}</code></pre>
+
+
                 </div>  <!-- field-items -->
 
 
@@ -235,14 +242,11 @@
 
 
     <h3 class="field-label">Responses</h3>
-    <h4 class="field-label">201</h4>
+    <h4 class="field-label">200</h4>
     item created
         <a href="#"></a>
-    <h4 class="field-label">400</h4>
-    invalid input, object invalid
-        <a href="#"></a>
-    <h4 class="field-label">409</h4>
-    an existing item already exists
+    <h4 class="field-label">404</h4>
+    invalid input, object invalid,an existing item already exists
         <a href="#"></a>
   </div> <!-- method -->
   <hr/>
