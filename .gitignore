@@ -8,6 +8,7 @@ __pycache__/
 .DS_Stores
 .DS_Store
 dump
+snippets.html
 
 
 # C extensions
